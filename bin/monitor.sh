@@ -2,6 +2,7 @@
 
 LOG="log/monitor.log"
 MAC="04:42:1A:09:4A:A5"
+LAN="wlan0"
 
 if [ -d "log" ]; then
     echo "logging to $LOG"
@@ -16,7 +17,7 @@ sudo ls ./log
 # take a 10 second sample every minute
 while true; do
     echo -n "$(date '+%Y-%m-%d %H:%M:%S') " | tee -a $LOG
-    timeout 10 sudo tcpdump -i wlp1s0 ether host $MAC 2>&1 | grep captured | tee -a $LOG
+    timeout 10 sudo tcpdump -i $LAN ether host $MAC 2>&1 | grep captured | tee -a $LOG
     sleep 50
 done
 
