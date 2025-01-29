@@ -9,4 +9,8 @@ Very simple network monitor to track Internet useage-time for specific users.
 
 ### RaspberryPi Installation
 
-1. to `/etc/rc.local` add `/home/pi/budget-network-monitor/bin/start-network-monitor.sh`
+1. to roots crontab, add:
+```
+@reboot              /home/pi/budget-network-monitor/bin/start-network-monitor.sh
+  0 *  *   *   *     /home/pi/budget-network-monitor/bin/generate-report.sh > /var/www/html/index.txt
+```
