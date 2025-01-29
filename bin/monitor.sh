@@ -1,18 +1,28 @@
 #!/bin/bash
 
-LOG="log/monitor.log"
-MAC="04:42:1A:09:4A:A5"
 LAN="wlan0"
+
+LOG="log/$(date '+%Y-%m-%d_network-monitor').log"
 
 if [ -d "log" ]; then
     echo "logging to $LOG"
 else
-    echo "log directory not found"
+    echo "ERROR log directory not found"
     exit 1
 fi
 
+# MAC="04:42:1A:09:4A:A5"
+if [ -z "$1" ]; then
+    echo "ERROR MAC address missing"
+    exit 1
+else
+    MAC="$1"
+    echo "searching for MAC $MAC"
+fi
+
 # warm up sudo
-sudo ls ./log
+echo "logs: "
+sudo ls -1 ./log
 
 # take a 10 second sample every minute
 while true; do
@@ -21,7 +31,7 @@ while true; do
     sleep 50
 done
 
-exit
+exit 0
 
 # TODO
 # split it into days
