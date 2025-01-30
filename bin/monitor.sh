@@ -26,6 +26,7 @@ sudo ls -1 ./log
 
 # take a 10 second sample every minute
 while true; do
+    LOG="log/$(date '+%Y-%m-%d_network-monitor').log"
     echo -n "$(date '+%Y-%m-%d %H:%M:%S') " | tee -a $LOG
     timeout 10 sudo tcpdump -i $LAN ether host $MAC 2>&1 | grep captured | tee -a $LOG
     sleep 50
